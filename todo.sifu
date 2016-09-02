@@ -1,0 +1,45 @@
+todo project[
+  url www.todo.com
+  namespace com.todo
+](
+
+  #SERVER
+  backend server[
+    template java-springboot
+    developer (snovak)
+  ](
+
+     #MODEL
+   	Note model(
+   	  title text
+   		content text
+   	)
+
+    #API
+    NoteApi api(
+   	  note crud[model Note, rest]
+    	  notes find[from Note, rest]
+    )
+  )
+
+  #CLIENT
+  webApp client[
+    template js-angular
+   	connectedTo backend
+   	path /home
+   	home notesPage
+  ](
+     NoteUpdated event
+
+   	notesPage page[path /notes](
+   		addNote button{on click open createNewNote}
+   		notes table[load NoteApi.notes]{
+			    on NoteUpdated reload
+		    }
+   	)
+
+   	createNewNote form[submit NoteApi.createNote]{
+		    on success (close, fire NoteUpdated)
+	    }
+  )
+)
