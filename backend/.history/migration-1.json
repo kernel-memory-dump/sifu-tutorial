@@ -1,0 +1,72 @@
+{
+    "name": "backend",
+    "models": [{
+        "name": "User",
+        "properties": [{
+            "dslType": "long",
+            "name": "id",
+            "wrappers": []
+        }, {
+            "dslType": "text",
+            "name": "firstName",
+            "wrappers": [],
+            "minSize": "1",
+            "maxSize": "40"
+        }, {
+            "dslType": "text",
+            "name": "lastName",
+            "wrappers": [],
+            "minSize": "1",
+            "maxSize": "60"
+        }],
+        "references": [],
+        "primaryKeys": [{
+            "dslType": "long",
+            "name": "id",
+            "wrappers": []
+        }],
+        "primaryKeySqlName": "PK_USER_I_CF6928",
+        "uniques": [],
+        "indices": []
+    }, {
+        "name": "Todo",
+        "properties": [{
+            "dslType": "long",
+            "name": "id",
+            "wrappers": []
+        }, {
+            "dslType": "long",
+            "name": "userId",
+            "wrappers": []
+        }, {
+            "dslType": "text",
+            "name": "task",
+            "wrappers": [],
+            "minSize": "1",
+            "maxSize": "255"
+        }, {
+            "dslType": "date",
+            "name": "date",
+            "wrappers": [],
+            "default": "2016-1-14"
+        }],
+        "references": [{
+            "name": "user",
+            "model": "User",
+            "properties": [{
+                "dslType": "long",
+                "name": "userId",
+                "wrappers": []
+            }],
+            "sqlName": "FK_TODO.UI_USER.I_355EBD"
+        }],
+        "primaryKeys": [{
+            "dslType": "long",
+            "name": "id",
+            "wrappers": []
+        }],
+        "primaryKeySqlName": "PK_TODO_I_9DF938",
+        "uniques": [],
+        "indices": []
+    }]
+}

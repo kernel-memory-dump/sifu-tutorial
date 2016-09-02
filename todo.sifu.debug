@@ -1,0 +1,324 @@
+todo project[
+    url www.todo.com
+    namespace com.todo](
+    backend server[
+        template java-springboot
+        developer(
+            kernel
+            docker
+        )
+        path /
+        default model type sql](
+        User model[
+            type sql](
+            id integer[
+                primarykey
+                max 9223372036854775807]
+            firstName text[
+                min 1
+                max 40]
+            lastName text[
+                min 1
+                max 60]
+            findAll find from User as User
+            countAll count from User as User
+            findById find from User as User where User.id == id
+            getById get from User as User where User.id == id
+            deleteById delete from User as User where User.id == id
+            findByFirstName find from User as User where User.firstName == firstName
+            findByLastName find from User as User where User.lastName == lastName
+        )
+        Todo model[
+            type sql](
+            id integer[
+                primarykey
+                max 9223372036854775807]
+            user User[
+                manyToOne]
+            task text[
+                min 1
+                max 255]
+            date date[
+                default 14/1/2016]
+            findAll find from Todo as Todo
+            countAll count from Todo as Todo
+            findById find from Todo as Todo where Todo.id == id
+            getById get from Todo as Todo where Todo.id == id
+            deleteById delete from Todo as Todo where Todo.id == id
+            findByUser find from Todo as Todo where Todo.user.id == userId
+            findByTask find from Todo as Todo where Todo.task == task
+            findByDate find from Todo as Todo where Todo.date == date
+        )
+        UserApi api(
+            readUser find[
+                get /user/:id
+                query User.findById
+                response(
+                    User.id
+                    User.firstName
+                    User.lastName
+                )
+                errors
+                request ReadUserRequest
+                response ReadUserResponse]
+            ReadUserRequest dto(
+                id integer[
+                    max 9223372036854775807]
+            )
+            ReadUserResponse dto(
+                id integer[
+                    max 9223372036854775807]
+                firstName text[
+                    min 1
+                    max 40]
+                lastName text[
+                    min 1
+                    max 60]
+            )
+            createUser create[
+                post /user
+                model User
+                query User.findById
+                response(
+                    User.id
+                    User.firstName
+                    User.lastName
+                )
+                errors
+                request CreateUserRequest
+                response CreateUserResponse](
+                id id[
+                    visible(
+                        read
+                    )]
+                firstName firstName[
+                    visible(
+                        create
+                        read
+                    )]
+                lastName lastName[
+                    visible(
+                        create
+                        read
+                    )]
+            )
+            CreateUserRequest dto(
+                firstName text[
+                    min 1
+                    max 40]
+                lastName text[
+                    min 1
+                    max 60]
+            )
+            CreateUserResponse dto(
+                id integer[
+                    max 9223372036854775807]
+                firstName text[
+                    min 1
+                    max 40]
+                lastName text[
+                    min 1
+                    max 60]
+            )
+            updateUser update[
+                put /user/:id
+                model User
+                query User.findById
+                response(
+                    User.id
+                    User.firstName
+                    User.lastName
+                )
+                errors
+                request UpdateUserRequest
+                response UpdateUserResponse](
+                id id[
+                    visible(
+                        read
+                        update
+                    )]
+                firstName firstName[
+                    visible(
+                        read
+                        update
+                    )]
+                lastName lastName[
+                    visible(
+                        read
+                        update
+                    )]
+            )
+            UpdateUserRequest dto(
+                id integer[
+                    max 9223372036854775807]
+                firstName text[
+                    min 1
+                    max 40]
+                lastName text[
+                    min 1
+                    max 60]
+            )
+            UpdateUserResponse dto(
+                id integer[
+                    max 9223372036854775807]
+                firstName text[
+                    min 1
+                    max 40]
+                lastName text[
+                    min 1
+                    max 60]
+            )
+            deleteUser delete[
+                delete /user/:id
+                query User.findById
+                errors
+                request DeleteUserRequest]
+            DeleteUserRequest dto(
+                id integer[
+                    max 9223372036854775807]
+            )
+        )
+        TodoApi api(
+            readTodo find[
+                get /todo/:id
+                query Todo.findById
+                response(
+                    Todo.id
+                    Todo.user.id
+                    Todo.task
+                    Todo.date
+                )
+                errors
+                request ReadTodoRequest
+                response ReadTodoResponse]
+            ReadTodoRequest dto(
+                id integer[
+                    max 9223372036854775807]
+            )
+            ReadTodoResponse dto(
+                id integer[
+                    max 9223372036854775807]
+                userId integer[
+                    max 9223372036854775807]
+                task text[
+                    min 1
+                    max 255]
+                date date
+            )
+            createTodo create[
+                post /todo
+                model Todo
+                query Todo.findById
+                response(
+                    Todo.id
+                    Todo.user.id
+                    Todo.task
+                    Todo.date
+                )
+                errors
+                request CreateTodoRequest
+                response CreateTodoResponse](
+                id id[
+                    visible(
+                        read
+                    )]
+                userId user.id[
+                    visible(
+                        create
+                        read
+                    )]
+                task task[
+                    visible(
+                        create
+                        read
+                    )]
+                date date[
+                    visible(
+                        create
+                        read
+                    )]
+            )
+            CreateTodoRequest dto(
+                userId integer[
+                    max 9223372036854775807]
+                task text[
+                    min 1
+                    max 255]
+                date date
+            )
+            CreateTodoResponse dto(
+                id integer[
+                    max 9223372036854775807]
+                userId integer[
+                    max 9223372036854775807]
+                task text[
+                    min 1
+                    max 255]
+                date date
+            )
+            updateTodo update[
+                put /todo/:id
+                model Todo
+                query Todo.findById
+                response(
+                    Todo.id
+                    Todo.user.id
+                    Todo.task
+                    Todo.date
+                )
+                errors
+                request UpdateTodoRequest
+                response UpdateTodoResponse](
+                id id[
+                    visible(
+                        read
+                        update
+                    )]
+                userId user.id[
+                    visible(
+                        read
+                        update
+                    )]
+                task task[
+                    visible(
+                        read
+                        update
+                    )]
+                date date[
+                    visible(
+                        read
+                        update
+                    )]
+            )
+            UpdateTodoRequest dto(
+                id integer[
+                    max 9223372036854775807]
+                userId integer[
+                    max 9223372036854775807]
+                task text[
+                    min 1
+                    max 255]
+                date date
+            )
+            UpdateTodoResponse dto(
+                id integer[
+                    max 9223372036854775807]
+                userId integer[
+                    max 9223372036854775807]
+                task text[
+                    min 1
+                    max 255]
+                date date
+            )
+            deleteTodo delete[
+                delete /todo/:id
+                query Todo.findById
+                errors
+                request DeleteTodoRequest]
+            DeleteTodoRequest dto(
+                id integer[
+                    max 9223372036854775807]
+            )
+        )
+    )
+)

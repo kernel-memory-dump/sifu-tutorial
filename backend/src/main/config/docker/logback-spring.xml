@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration scan="true">
+    <include resource="org/springframework/boot/logging/logback/base.xml"/>
+    <springProfile name="dev">
+        <logger level="@logback.loglevel@" name="com.todo.backend"/>
+        <logger level="WARN" name="javax.activation"/>
+        <logger level="WARN" name="javax.mail"/>
+        <logger level="WARN" name="javax.xml.bind"/>
+        <logger level="WARN" name="ch.qos.logback"/>
+        <logger level="WARN" name="com.codahale.metrics"/>
+        <logger level="WARN" name="com.ryantenney"/>
+        <logger level="WARN" name="com.sun"/>
+        <logger level="WARN" name="com.zaxxer"/>
+        <logger level="WARN" name="org.apache"/>
+        <logger level="OFF" name="org.apache.catalina.startup.DigesterFactory"/>
+        <logger level="WARN" name="org.bson"/>
+        <logger level="WARN" name="org.elasticsearch"/>
+        <logger level="WARN" name="org.hibernate.validator"/>
+        <logger level="WARN" name="org.hibernate"/>
+        <logger level="OFF" name="org.hibernate.ejb.HibernatePersistence"/>
+        <logger level="WARN" name="org.springframework"/>
+        <logger level="WARN" name="org.springframework.web"/>
+        <logger level="WARN" name="org.springframework.security"/>
+        <logger level="WARN" name="org.springframework.cache"/>
+        <logger level="WARN" name="org.thymeleaf"/>
+        <logger level="WARN" name="org.xnio"/>
+        <logger level="WARN" name="springfox"/>
+        <logger level="WARN" name="sun.rmi"/>
+        <logger level="WARN" name="liquibase"/>
+        <logger level="WARN" name="sun.rmi.transport"/>
+        <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator">
+            <resetJUL>true</resetJUL>
+        </contextListener>
+        <root level="@logback.loglevel@">
+            <appender-ref ref="CONSOLE"/>
+        </root>
+    </springProfile>
+</configuration>
