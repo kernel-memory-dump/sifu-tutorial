@@ -4,7 +4,7 @@ todo project[
     backend server[
         template java-springboot
         developer(
-            kernel
+            snovak
             docker
         )
         path /
